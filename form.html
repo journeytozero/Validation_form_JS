@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        /* Custom styles for better aesthetics */
+        .form-container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            max-width: 480px;
+            width: 100%;
+        }
+        .input-field {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.2s ease-in-out;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #6366f1; /* Indigo 500 */
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3); /* Indigo 500 with transparency */
+        }
+        .error-message {
+            color: #ef4444; /* Red 500 */
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        .validation-summary {
+            background-color: #fef2f2; /* Red 50 */
+            border-left: 4px solid #ef4444; /* Red 500 */
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: none; /* Hidden by default */
+        }
+        .validation-summary ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .validation-summary li {
+            font-size: 0.875rem;
+            color: #ef4444;
+            margin-bottom: 0.25rem;
+        }
+        .validation-summary li:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">Register Your Account</h2>
+
+        <div id="validationSummary" class="validation-summary">
+            <p class="font-semibold mb-2">Please correct the following errors:</p>
+            <ul id="errorList"></ul>
+        </div>
+
+        <form id="registrationForm" class="space-y-6">
+            <div>
+                <label for="firstName" class="block text-gray-700 text-sm font-medium mb-1">First Name</label>
+                <input type="text" id="firstName" name="firstName" class="input-field" placeholder="Enter your first name">
+                <p id="firstNameError" class="error-message"></p>
+            </div>
+
+            <div>
+                <label for="lastName" class="block text-gray-700 text-sm font-medium mb-1">Last Name</label>
+                <input type="text" id="lastName" name="lastName" class="input-field" placeholder="Enter your last name">
+                <p id="lastNameError" class="error-message"></p>
+            </div>
+
+            <div>
+                <label for="dob" class="block text-gray-700 text-sm font-medium mb-1">Date of Birth</label>
+                <input type="date" id="dob" name="dob" class="input-field">
+                <p id="dobError" class="error-message"></p>
+            </div>
+
+            <div>
+                <label for="password" class="block text-gray-700 text-sm font-medium mb-1">Password</label>
+                <input type="password" id="password" name="password" class="input-field" placeholder="Enter your password">
+                <p id="passwordError" class="error-message"></p>
+            </div>
+
+            <div>
+                <label for="confirmPassword" class="block text-gray-700 text-sm font-medium mb-1">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="input-field" placeholder="Confirm your password">
+                <p id="confirmPasswordError" class="error-message"></p>
+            </div>
+
+            <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200">
+                Register
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // error tag id=lastNameError common class error-message
+        // Get references to form elements and error display areas
+        const registrationForm = document.getElementById('registrationForm');// Target Form
+        const firstNameInput = document.getElementById('firstName');
+        const lastNameInput = document.getElementById('lastName');
+        const dobInput = document.getElementById('dob');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+    //Error display catch
+        const firstNameError = document.getElementById('firstNameError');
+        const lastNameError = document.getElementById('lastNameError');
+        const dobError = document.getElementById('dobError');
+        const passwordError = document.getElementById('passwordError');
+        const confirmPasswordError = document.getElementById('confirmPasswordError');
+
+        const validationSummary = document.getElementById('validationSummary');
+        const errorList = document.getElementById('errorList');
+
+        /**
+         * Clears all individual error messages and hides the validation summary.
+         */
+        function clearErrors() {
+            firstNameError.textContent = '';
+            lastNameError.textContent = '';
+            dobError.textContent = '';
+            passwordError.textContent = '';
+            confirmPasswordError.textContent = '';
+            errorList.innerHTML = '';
+            validationSummary.style.display = 'none';
+        }
+
+        /**
+         * Displays an error message for a specific input field.
+         * @param {HTMLElement} errorElement The paragraph element to display the error.
+         * @param {string} message The error message to display.
+         * @param {Array<string>} summaryErrors Array to collect errors for the summary.
+         */
+        function displayError(errorElement, message, summaryErrors) {
+            errorElement.textContent = message;
+            summaryErrors.push(message);
+        }
+
+        /**
+         * Handles the form submission and performs validation.
+         * @param {Event} event The submit event object.
+         */
+        registrationForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            clearErrors(); // Clear previous errors
+            const errors = []; // Array to collect all errors for the summary
+
+            // Get trimmed values from inputs
+            const firstName = firstNameInput.value.trim();
+            const lastName = lastNameInput.value.trim();
+            const dob = dobInput.value;
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            // --- Validation Logic ---
+
+            // First Name validation
+            if (firstName === '') {
+                displayError(firstNameError, 'First name is required.', errors);
+            }
+
+            // Last Name validation
+            if (lastName === '') {
+                displayError(lastNameError, 'Last name is required.', errors);
+            }
+
+            // Date of Birth validation
+            if (dob === '') {
+                displayError(dobError, 'Date of birth is required.', errors);
+            } else {
+                const today = new Date();
+                const birthDate = new Date(dob);
+                if (birthDate > today) {
+                    displayError(dobError, 'Date of birth cannot be in the future.', errors);
+                }
+            }
+
+            // Password validation
+            if (password === '') {
+                displayError(passwordError, 'Password is required.', errors);
+            } else if (password.length < 8) {
+                displayError(passwordError, 'Password must be at least 8 characters long.', errors);
+            }
+
+            // Confirm Password validation
+            if (confirmPassword === '') {
+                displayError(confirmPasswordError, 'Confirm password is required.', errors);
+            } else if (password !== confirmPassword) {
+                displayError(confirmPasswordError, 'Passwords do not match.', errors);
+            }
+
+            // --- Display Validation Summary or Success ---
+            if (errors.length > 0) {
+                // Display general summary if there are errors
+                validationSummary.style.display = 'block';
+                errors.forEach(error => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `• ${error}`;
+                    errorList.appendChild(listItem);
+                });
+            } else {
+                // Form is valid - You would typically send data to a server here
+                alert('Form submitted successfully!'); // Using alert for demo, use a custom modal in production
+                console.log('Form data:', {
+                    firstName,
+                    lastName,
+                    dob,
+                    password: '***', // Never log actual password
+                    confirmPassword: '***'
+                });
+                registrationForm.reset(); // Clear the form after successful submission
+                clearErrors(); // Clear any lingering error messages
+            }
+        });
+    </script>
+</body>
+</html>

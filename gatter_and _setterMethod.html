@@ -1,0 +1,47 @@
+<script>
+	 class Student{
+
+	 	constructor()
+	 	{
+	 		var name;
+	 		var mark;
+
+	 	}
+	 	setName(a)
+	 	{
+	 		this.name=a;
+
+	 	}
+	 	setMark(b)
+	 	{
+	 		this.mark=b;
+
+
+	 	}
+
+		getName()
+	 	{
+	 		return this.name;
+	 		
+	 	}
+	 	getMark()
+	 	{
+	 		return this.mark;
+	 		
+	 	}
+
+
+	 }
+	 let s= new Student();
+	 s.setName("Rayhn");
+	 s.setMark("3.94");
+	 let s2= new Student();
+	 s2.setName("Harun");
+	 s2.setMark("3.90");
+
+	 document.write("This name is "+s.getName()+"This Mark is "+ s.getMark()+"<br>");
+	  document.write("This name is "+s2.getName()+"This Mark is "+ s2.getMark()+"<br>");
+	  document.write(`This name is ${s2.getName()}This Mark is ${ s2.getMark()}`+"<br>")
+
+
+</script>

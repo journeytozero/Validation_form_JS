@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Private Modifer</title>
+</head>
+<body>
+	<script>
+		class User
+		{
+			#password;
+			#otp;
+			constructor(username,email,password,otp)
+			{
+				this.username=username;
+				this.email=email;
+				this.#password=password;
+				this.#otp=otp;
+			}
+			login(username,password,otp)
+			{
+				if(username==this.username && password==this.#password && otp==this.#otp)
+				{
+					document.write("Sucessfull LogIN"+"<br> ");
+				}
+				else
+				{
+					document.write("Not Valid"+"<br> ");
+				}
+			}
+
+
+		}
+		class Member extends User{
+			constructor(username,email,password,otp,packeg)
+			{
+				super(username,email,password,otp)
+				this.packeg=packeg;
+			}
+			memberPackeg()
+			{
+				document.write(`MD.${this.username} your Packed Is ${this.packeg}`);
+			}
+		}
+
+		let m1=new Member('Rayhan','rayhan@gmail.com','123456','2235','FreePKG');
+		m1.login('Rayhan','123456','2235');
+		m1.memberPackeg();
+		//document.write(m1.otp);
+
+
+		
+	</script>
+
+</body>
+</html>
