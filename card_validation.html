@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+            border: 1px solid #e0e0e0;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"] {
+            width: calc(100% - 22px); /* Account for padding and border */
+            padding: 11px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        input[type="text"].invalid {
+            border-color: red;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 17px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #validationMessage {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.1em;
+            min-height: 20px; /* Reserve space to prevent layout shift */
+        }
+        .valid-message {
+            color: green;
+        }
+        .invalid-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Credit Card Validation</h2>
+        <label for="cardNumber">Credit Card Number:</label>
+        <input type="text" id="cardNumber" placeholder="Enter card number">
+        <button onclick="validateCreditCard()">Validate Card</button>
+        <p id="validationMessage"></p>
+    </div>
+
+    <script>
+       function validateCreditCard() {
+            let cardNO = document.getElementById("cardNumber").value;
+            let rex = /^4[0-9]{12}(?:[0-9]{3})?$/;
+            let ok = rex.test(cardNO);
+
+            if (ok == true) {
+                document.getElementById("validationMessage").innerHTML = "Valid Visa Card";
+            }
+            else {
+                document.getElementById("validationMessage").innerHTML = "Invalid Visa Card";
+            }
+        }
+    </script>
+</body>
+</html>
