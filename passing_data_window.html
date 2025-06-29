@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Data Form</title>
+</head>
+<body>
+
+    <form id="traineeform" action="">
+        <label for="name">Name:</label><br>
+        <input type="text" name="name" id="name"><br>
+
+        <label for="contact">Contact:</label><br>
+        <input type="text" name="contact" id="contact"><br>
+
+        <label for="address">Address:</label><br>
+        <textarea name="address" id="address" rows="4" cols="50"></textarea><br>
+
+        <label>Gender:</label><br>
+        <input type="radio" name="sex" id="male" value="Male">
+        <label for="male">Male</label>
+        <input type="radio" name="sex" id="female" value="Female">
+        <label for="female">Female</label><br>
+
+        <label>Selected Course:</label><br>
+        <input type="checkbox" name="course" id="nt" value="NT">
+        <label for="nt">NT</label><br>
+        <input type="checkbox" name="course" id="pwad" value="PWAD">
+        <label for="pwad">PWAD</label><br>
+        <input type="checkbox" name="course" id="wpdf" value="WPDF">
+        <label for="wpdf">WPDF</label><br>
+        <input type="checkbox" name="course" id="jee" value="JEE">
+        <label for="jee">JEE</label><br>
+
+        <label for="location">Select Location:</label><br>
+        <select name="location" id="location">
+            <option value="Banani">Banani</option>
+            <option value="Dhanmondi">Dhanmondi</option>
+            <option value="Mirpur">Mirpur</option>
+            <option value="Uttara">Uttara</option>
+        </select><br><br>
+
+        <button type="button" onclick="submitform()">Submit</button>
+    </form>
+    
+    <script>
+        class Trainee {
+            constructor(name, contact, address, gender, courses, location) {
+                this.name = name;
+                this.contact = contact;
+                this.address = address;
+                this.gender = gender;
+                this.courses = courses;
+                this.location = location;
+            }
+
+            getFormatteData() {
+                return `Name: ${this.name}\nContact: ${this.contact}\nAddress: ${this.address}\nGender: ${this.gender}\nCourses: ${this.courses.join(", ")}\nLocation: ${this.location}`;
+            }
+        }
+
+        function submitform() {
+            const name = document.getElementById('name').value;
+            const contact = document.getElementById('contact').value;
+            const address = document.getElementById('address').value;
+            const genderElement = document.querySelector('input[name="sex"]:checked');
+            const gender = genderElement ? genderElement.value : "Not selected";
+            const courses = Array.from(document.querySelectorAll('input[name="course"]:checked')).map(course => course.value);
+            const location = document.getElementById('location').value;
+
+            const trainee = new Trainee(name, contact, address, gender, courses, location);
+            const FormatteData = trainee.getFormatteData();
+
+            const newWindow = window.open("", "_blank");
+            newWindow.document.write("<pre>" + FormatteData + "</pre>");
+        }
+    </script>
+</body>
+</html>
