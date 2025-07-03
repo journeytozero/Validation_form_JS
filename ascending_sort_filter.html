@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Number Array Sorter</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 30px;
+      max-width: 500px;
+      margin: auto;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      font-size: 16px;
+    }
+    #output {
+      margin-top: 20px;
+      font-weight: bold;
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-group button {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔢 Number Array Sorter</h2>
+  <p>Enter numbers separated by commas (e.g., 10, 25, 5, 30):</p>
+  <input type="text" id="numberInput" placeholder="Enter numbers">
+
+  <div class="btn-group">
+    <button onclick="sortAscending()">Sort Ascending ⬆️</button>
+    <button onclick="sortDescending()">Sort Descending ⬇️</button>
+  </div>
+
+  <div id="output"></div>
+
+  <script>
+    function getNumberArray() {
+      const input = document.getElementById("numberInput").value;
+      return input
+        .split(",")
+        .map(n => parseFloat(n.trim()))
+        .filter(n => !isNaN(n));
+    }
+
+    function sortAscending() {
+      const nums = getNumberArray();
+      nums.sort((a, b) => a - b);
+      document.getElementById("output").innerText = 
+        nums.length ? `🔼 Sorted Ascending: ${nums.join(", ")}` : "Please enter valid numbers.";
+    }
+
+    function sortDescending() {
+      const nums = getNumberArray();
+      nums.sort((a, b) => b - a);
+      document.getElementById("output").innerText = 
+        nums.length ? `🔽 Sorted Descending: ${nums.join(", ")}` : "Please enter valid numbers.";
+    }
+  </script>
+
+</body>
+</html>
