@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Max Number</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        input,button{
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        #output{
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: cornflowerblue;
+        }
+    </style>
+</head>
+<body>
+    <h2>Enter Numbers: </h2>
+    <input type="text" name="numberInput" value="" id="numberInput" placeholder="Eg. 10,45,7,99...">
+    <button onclick="findMax()">Find Max</button>
+
+    <div id="output">
+
+    </div>
+
+    <script>
+        function findMax()
+        {
+            let input = document.getElementById("numberInput").value;
+            // Split the input by comma, trim whitespace from each part, and parse as a float
+            let numbers = input.split(",").map(num => parseFloat(num.trim()));
+
+            let maxNumber = null;
+
+            for(let i = 0; i < numbers.length; i++) {
+                // Check if the parsed value is a valid number
+                if (!isNaN(numbers[i])) {
+                    if (maxNumber === null || numbers[i] > maxNumber) {
+                        maxNumber = numbers[i];
+                    }
+                }
+            }
+
+            if (maxNumber !== null) {
+                document.getElementById('output').innerHTML = "Max Number is: " + maxNumber;
+            } else {
+                document.getElementById('output').innerHTML = "Please enter valid numbers.";
+            }
+        }
+    </script>
+</body>
+</html>
